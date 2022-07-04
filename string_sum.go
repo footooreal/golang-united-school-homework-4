@@ -27,30 +27,35 @@ var (
 
 func StringSum(input string) (output string, err error) {
 
-	input = strings.Trim(input, "")
-	var operandString1 string
-	var operandString2 string
-
 	if input == "" {
-		return "", fmt.Errorf("some context: %w", errorEmptyInput)
+		return "", fmt.Errorf("blah blah: %w", errorEmptyInput)
 	}
 
-	inputSplit := strings.Split(input, "+")
-	if len(inputSplit) != 2 {
-		return "", fmt.Errorf("some context: %w", errorNotTwoOperands)
+	input = strings.ReplaceAll(input, " ", "")
+	operArr := []int{}
+	symArr := []byte{}
+
+	for i, v := range input {
+		x, err := strconv.Atoi(string(v))
+		if err == nil {
+			operArr = append(operArr, x)
+			symArr = append(symArr, input[i-1])
+		}
 	}
-	operandString1 = inputSplit[0]
-	operandString2 = inputSplit[1]
-	strings.Trim(operandString1, "+")
-	strings.Trim(operandString1, "-")
-	
-	_, err = strconv.Atoi(operandString1)
-	if err != nil {
-		return "", fmt.Errorf("oh no")
+
+	if len(operArr) != 2 {
+		return "", fmt.Errorf("blah blah: %w", errorNotTwoOperands)
 	}
-	_, err = strconv.Atoi(operandString2)
-	if err != nil {
-		return "", fmt.Errorf("oh no")
+
+	sym1 := string(symArr[0])
+	sym2 := string(symArr[1])
+	oper1 := operArr[0]
+	oper2 := operArr[1]
+	if sym1 == "-" {
+		oper1 = -oper1
+	}
+	if sym2 == "-" {
+		oper2 = -oper2
 	}
 
 	return "", nil
