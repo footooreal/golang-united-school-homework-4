@@ -13,8 +13,6 @@ var (
 	errorEmptyInput = errors.New("input is empty")
 	// Use when the expression has number of operands not equal to two
 	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
-
-	errorBadFormatting = errors.New("failed to convert string to integer")
 )
 
 // Implement a function that computes the sum of two int numbers written as a string
@@ -46,11 +44,11 @@ func StringSum(input string) (output string, err error) {
 
 	_, err = strconv.Atoi(operandString1)
 	if err != nil {
-		return "", fmt.Errorf(errorBadFormatting.Error(), err)
+		return "", fmt.Errorf("my custom err msg: %w", err)
 	}
 	_, err = strconv.Atoi(operandString2)
 	if err != nil {
-		return "", fmt.Errorf(errorBadFormatting.Error(), err)
+		return "", fmt.Errorf("my custom err msg: %w", err)
 	}
 
 	return "", nil
