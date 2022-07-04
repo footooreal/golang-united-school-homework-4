@@ -37,12 +37,12 @@ func StringSum(input string) (output string, err error) {
 
 	for i, v := range input {
 		x, err := strconv.Atoi(string(v))
-		if i-1 != 0 {
-			symArr = append(symArr, input[i-1])
-		} else {
-			symArr = append(symArr, 0)
-		}
 		if err == nil {
+			if i-1 >= 0 {
+				symArr = append(symArr, input[i-1])
+			} else {
+				symArr = append(symArr, 0)
+			}
 			operArr = append(operArr, x)
 		}
 	}
@@ -65,5 +65,4 @@ func StringSum(input string) (output string, err error) {
 	answer := oper1 + oper2
 
 	return strconv.Itoa(answer), nil
-
 }
