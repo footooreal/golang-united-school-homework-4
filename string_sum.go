@@ -41,7 +41,9 @@ func StringSum(input string) (output string, err error) {
 	}
 	operandString1 = inputSplit[0]
 	operandString2 = inputSplit[1]
-
+	strings.Trim(operandString1, "+")
+	strings.Trim(operandString1, "-")
+	
 	_, err = strconv.Atoi(operandString1)
 	if err != nil {
 		return "", fmt.Errorf("oh no")
