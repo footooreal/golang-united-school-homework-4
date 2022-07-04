@@ -28,7 +28,7 @@ var (
 func StringSum(input string) (output string, err error) {
 
 	if input == "" {
-		return "", fmt.Errorf("blah blah: %w", errorEmptyInput)
+		return "", fmt.Errorf("%w", errorEmptyInput)
 	}
 
 	input = strings.ReplaceAll(input, " ", "")
@@ -37,18 +37,18 @@ func StringSum(input string) (output string, err error) {
 
 	for i, v := range input {
 		x, err := strconv.Atoi(string(v))
+		if input[i-1] != 0 {
+			symArr = append(symArr, input[i-1])
+		} else {
+			symArr = append(symArr, 0)
+		}
 		if err == nil {
 			operArr = append(operArr, x)
-			if input[i-1] != 0 {
-				symArr = append(symArr, input[i-1])
-			} else {
-				symArr = append(symArr, 0)
-			}
 		}
 	}
 
 	if len(operArr) != 2 {
-		return "", fmt.Errorf("blah blah: %w", errorNotTwoOperands)
+		return "", fmt.Errorf("%w", errorNotTwoOperands)
 	}
 
 	sym1 := string(symArr[0])
