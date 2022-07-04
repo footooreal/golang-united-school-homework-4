@@ -32,12 +32,12 @@ func StringSum(input string) (output string, err error) {
 	var operandString2 string
 
 	if input == "" {
-		return "", fmt.Errorf(errorEmptyInput.Error(), err)
+		return "", errorEmptyInput
 	}
 
 	inputSplit := strings.Split(input, "+")
 	if len(inputSplit) != 2 {
-		return "", fmt.Errorf(errorNotTwoOperands.Error(), err)
+		return "", errorNotTwoOperands
 	}
 	operandString1 = inputSplit[0]
 	operandString2 = inputSplit[1]
