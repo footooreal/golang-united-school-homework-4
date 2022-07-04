@@ -37,7 +37,7 @@ func StringSum(input string) (output string, err error) {
 
 	for i, v := range input {
 		x, err := strconv.Atoi(string(v))
-		if input[i-1] != 0 {
+		if i-1 != 0 {
 			symArr = append(symArr, input[i-1])
 		} else {
 			symArr = append(symArr, 0)
