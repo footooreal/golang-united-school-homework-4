@@ -30,39 +30,65 @@ func StringSum(input string) (output string, err error) {
 	if input == "" {
 		return "", fmt.Errorf("%w", errorEmptyInput)
 	}
-
 	input = strings.ReplaceAll(input, " ", "")
-	operArr := []int{}
-	symArr := []byte{}
+	o1 := ""
+	o2 := ""
+	o3 := ""
+	oi1 := 0
+	oi2 := 0
+	sym1 := ""
+	sym2 := ""
+	sep1 := false
+	sep2 := false
 
 	for i, v := range input {
-		x, err := strconv.Atoi(string(v))
-		if err == nil {
-			if i-1 >= 0 {
-				symArr = append(symArr, input[i-1])
+
+		_, err1 := strconv.Atoi(string(v))
+		if err1 != nil && o2 != "" {
+			sep2 = true
+		}
+
+		x, err2 := strconv.Atoi(string(v))
+		if err2 == nil {
+
+			if sep1 == false {
+				o1 = o1 + strconv.Itoa(x)
+			} else if sep2 == false {
+				o2 = o2 + strconv.Itoa(x)
 			} else {
-				symArr = append(symArr, 0)
+				o3 = o3 + strconv.Itoa(x)
 			}
-			operArr = append(operArr, x)
+
+			if i == 0 {
+				sym1 = "+"
+			}
+			if i > 0 && o2 == "" {
+				if string(input[i-1]) == "-" {
+					sym1 = "-"
+				}
+			}
+			if i > 0 && o2 != "" {
+				if string(input[i-1]) == "-" && o2 != "" {
+					sym2 = "-"
+				}
+			}
+
+		} else if o1 != "" {
+			sep1 = true
 		}
 	}
 
-	if len(operArr) != 2 {
+	if o3 != "" {
 		return "", fmt.Errorf("%w", errorNotTwoOperands)
 	}
 
-	sym1 := string(symArr[0])
-	sym2 := string(symArr[1])
-	oper1 := operArr[0]
-	oper2 := operArr[1]
-	if sym1 == "-" {
-		oper1 = -oper1
-	}
-	if sym2 == "-" {
-		oper2 = -oper2
+	if o2 == "" {
+		return "", fmt.Errorf("%w", errorNotTwoOperands)
 	}
 
-	answer := oper1 + oper2
+	oi1, _ = strconv.Atoi(sym1 + o1)
+	oi2, _ = strconv.Atoi(sym2 + o2)
+	output = strconv.Itoa(oi1 + oi2)
+	return output, nil
 
-	return strconv.Itoa(answer), nil
 }
